@@ -16,9 +16,8 @@ int main(){
     starty = 200;
     float delta_y;
     float delta_x;
-    srand(time(NULL));
-    delta_y = float(rand() % 5);
-    delta_x = float(rand() % 5);
+    delta_y = 0.7;
+    delta_x = 0.8;
 
     while (window.isOpen()){
       sf::Event event;
@@ -27,28 +26,30 @@ int main(){
           window.close();
         }
       }
-      int distance_traveled;
+      //Check the ball's current position to save it. This makes comparison a bit more readable
       sf::Vector2f position = circle0.getPosition();
+      //The ball's position is actually describing its top left corner
       if (position.x > 1024 - radius * 2 && delta_x > 0){
         delta_x *= -1;
-      }
+        circle0.setFillColor(sf::Color::Blue);
+      } //Create bounds for right side of screen
       if (position.x < 0 && delta_x < 0){
           delta_x *= -1;
-      }
+          circle0.setFillColor(sf::Color::Red);
+      } //Create bounds for left side of screen
       if (position.y < 0 && delta_y < 0){
         delta_y *= -1;
-      }
+        circle0.setFillColor(sf::Color::Green);
+      } //Create bounds for top side of screen
       if (position.y > 576 - radius * 2 && delta_y > 0){
         delta_y *= -1;
-      }
+        circle0.setFillColor(sf::Color::Yellow);
+      } //Create bounds for bottom side of screen
       //printf("%f",position.x);
       startx += delta_x;
       starty += delta_y;
+      //Alter our ball's position based on change
       circle0.setPosition(startx,starty);
-
-      srand(time(NULL));
-      delta_y = float(rand() % 5);
-      delta_x = float(rand() % 5);
 
       window.clear();
       window.draw(circle0);
