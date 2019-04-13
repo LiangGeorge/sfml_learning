@@ -5,7 +5,8 @@ int main(){
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1024, 576), "Experimental",sf::Style::Default,settings);
-    sf::CircleShape circle0(100,50);
+    float radius = 50;
+    sf::CircleShape circle0(50,50);
     sf::Clock clock;
     circle0.setFillColor(sf::Color::Blue);
     float gravity;
@@ -18,7 +19,7 @@ int main(){
     last_pos = 200;
     int move_units;
     move_units = 25;
-    float delta_y = 0.1;
+    float delta_y = 0.5;
 
     //clock.restart();
     while (window.isOpen()){
@@ -35,7 +36,7 @@ int main(){
       sf::Vector2i localPosition = sf::Mouse::getPosition(window);
       //circle0.setPosition(localPosition.x - 100,localPosition.y - 100);
       printf("%f \n",circle0.getPosition().y);
-      if (circle0.getPosition().y > 576 - 200 && delta_y > 0){
+      if (circle0.getPosition().y > 576 - radius * 2 && delta_y > 0){
         clock.restart();
         delta_y *= -1;
         //elapsed_time = clock.getElapsedTime();
